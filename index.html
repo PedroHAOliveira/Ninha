@@ -4,21 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cardápio de Combos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
     <style>
-        /* 🎨 GUIA DE CORES APLICADO */
         :root {
             --fundo-creme: #FFF4E6;
+            --detalhes-amarelo: #FFC83D;
+            --preco-novo-laranja: #FF7A5A;
             --texto-marrom: #7A4A2E;
             --preco-antigo-turquesa: #7ACCC9;
-            --preco-novo-laranja: #FF7A5A;
-            --detalhes-amarelo: #FFC83D;
         }
 
         body {
+            font-family: 'Montserrat', sans-serif;
             background-color: var(--fundo-creme);
             color: var(--texto-marrom);
-            font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 20px;
             display: flex;
@@ -28,169 +27,74 @@
         .menu-container {
             max-width: 800px;
             width: 100%;
-            background-color: var(--fundo-creme);
-            /* Borda sutil amarela para dar um charme de cardápio físico */
-            border: 8px solid var(--detalhes-amarelo);
-            border-radius: 24px;
-            padding: 30px 20px;
+            background-color: #ffffff;
+            border: 6px solid var(--detalhes-amarelo);
+            border-radius: 20px;
+            padding: 40px;
             box-shadow: 0 10px 30px rgba(122, 74, 46, 0.1);
         }
 
-        .main-title {
+        .menu-header {
             text-align: center;
-            font-size: 2.2rem;
+            margin-bottom: 40px;
+        }
+
+        .main-title {
+            color: var(--texto-marrom);
+            font-size: 2.5rem;
             font-weight: 800;
-            margin-top: 0;
-            margin-bottom: 30px;
+            margin: 10px 0;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: var(--texto-marrom);
-            position: relative;
         }
 
-        .main-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background-color: var(--preco-novo-laranja);
-            margin: 10px auto 0;
-            border-radius: 2px;
-        }
-
-        .section-title {
-            font-size: 1.5rem;
+        .subtitle {
+            color: var(--preco-antigo-turquesa);
             font-weight: 700;
-            margin: 40px 0 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .category-badge {
+            background-color: var(--detalhes-amarelo);
             color: var(--texto-marrom);
-            border-bottom: 2px dashed var(--detalhes-amarelo);
-            padding-bottom: 10px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 800;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
         }
 
         .combos-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
         }
 
         .combo-card {
             background-color: var(--fundo-creme);
-            border: 2px solid var(--detalhes-amarelo);
-            border-radius: 16px;
-            padding: 20px;
+            border-radius: 15px;
+            padding: 25px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: transform 0.2s ease;
-            /* Sombra turquesa suave para dar profundidade de forma elegante */
-            box-shadow: 4px 4px 0px var(--preco-antigo-turquesa);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
         }
 
         .combo-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(122, 74, 46, 0.15);
+            border-color: var(--detalhes-amarelo);
         }
 
-        .combo-name {
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin: 0 0 10px 0;
-            color: var(--texto-marrom);
-            line-height: 1.3;
-        }
-
-        .combo-desc-wrapper {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px; /* Espaço um pouco maior para acomodar os novos ícones */
-            margin: 0 0 20px 0;
-            flex-grow: 1;
-        }
-
-        .combo-icon {
-            flex-shrink: 0;
-            width: 48px; /* Ícones maiores e mais expressivos */
-            height: 48px;
-            color: var(--preco-novo-laranja);
-            stroke-width: 1.8;
-            margin-top: -2px; 
-        }
-
-        .combo-desc {
-            font-size: 0.95rem;
-            font-weight: 400;
-            margin: 0;
-            line-height: 1.5;
-            color: var(--texto-marrom);
-        }
-
-        .price-section {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            margin-top: auto;
-        }
-
-        .old-price {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--preco-antigo-turquesa);
-            text-decoration: line-through;
-            margin-bottom: 4px;
-        }
-
-        /* O selo de desconto seguindo exatamente a dica extra */
-        .new-price-tag {
-            background-color: var(--detalhes-amarelo);
-            padding: 8px 16px;
-            border-radius: 12px;
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border: 2px dashed var(--texto-marrom);
-        }
-
-        .new-price-label {
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--texto-marrom);
-            margin-bottom: 2px;
-        }
-
-        .new-price-value {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--preco-novo-laranja);
-            /* Pequena sombra para garantir o contraste perfeito no fundo amarelo */
-            text-shadow: 1px 1px 0px rgba(255,255,255,0.4);
-        }
-
-        /* Responsividade */
-        @media (max-width: 600px) {
-            .menu-container {
-                padding: 20px 15px;
-                border-width: 4px;
-            }
-            .combos-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* --- NOVOS ESTILOS: INTERATIVIDADE E MODAL WHATSAPP --- */
-        
-        /* Indicador de clique no card */
-        .combo-card {
-            cursor: pointer;
-            position: relative;
-        }
-        
         /* Tooltip flutuante avisando para clicar */
         .combo-card::after {
-            content: '👉 Faça seu pedido!';
+            content: '👉 Fazer pedido!';
             position: absolute;
             bottom: -15px;
             left: 50%;
@@ -205,6 +109,7 @@
             transition: opacity 0.2s, bottom 0.2s;
             pointer-events: none;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            white-space: nowrap;
         }
         
         .combo-card:hover::after {
@@ -212,24 +117,95 @@
             bottom: -10px;
         }
 
-        /* Estilos do fundo escuro do Modal */
+        .combo-name {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin: 0 0 10px 0;
+            color: var(--texto-marrom);
+        }
+
+        .combo-items {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 0 0 20px 0;
+            opacity: 0.9;
+        }
+
+        .combo-icon {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .price-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-top: auto;
+        }
+
+        .old-price {
+            color: var(--preco-antigo-turquesa);
+            text-decoration: line-through;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .new-price-tag {
+            background-color: var(--detalhes-amarelo);
+            padding: 10px 15px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            border: 2px dashed var(--preco-novo-laranja);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .new-price-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: var(--texto-marrom);
+            margin-bottom: 2px;
+        }
+
+        .new-price-value {
+            color: var(--preco-novo-laranja);
+            font-size: 1.6rem;
+            font-weight: 800;
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .menu-container {
+                padding: 20px 15px;
+                border-width: 4px;
+            }
+            .combos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* --- ESTILOS DOS MODAIS --- */
         .modal-overlay {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(122, 74, 46, 0.7); /* Marrom da paleta com transparência */
+            background: rgba(122, 74, 46, 0.7);
             z-index: 1000;
             justify-content: center;
             align-items: center;
             padding: 20px;
             backdrop-filter: blur(4px);
+            box-sizing: border-box;
         }
         
         .modal-overlay.active {
             display: flex;
         }
         
-        /* Estilos da caixinha do Modal */
         .modal-box {
             background: var(--fundo-creme);
             border: 4px solid var(--detalhes-amarelo);
@@ -241,6 +217,8 @@
             box-shadow: 0 10px 40px rgba(0,0,0,0.4);
             position: relative;
             animation: popUp 0.3s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         @keyframes popUp {
@@ -272,6 +250,7 @@
             color: var(--texto-marrom);
             box-sizing: border-box;
             transition: border-color 0.2s, box-shadow 0.2s;
+            background-color: white;
         }
         
         .modal-input:focus {
@@ -318,160 +297,375 @@
             box-shadow: 0 4px 10px rgba(255, 122, 90, 0.3);
         }
 
+        /* --- ESTILOS DA NAVEGAÇÃO DE PÁGINAS --- */
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .page.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="menu-container">
-        <h1 class="main-title">🏷️ Cardápio de Combos</h1>
+    <!-- PAGE 1: COMBOS CLÁSSICOS -->
+    <div id="page-1" class="page active">
+        <div class="menu-container">
+            <div class="menu-header">
+                <span class="category-badge">☀️ Práticos & Rápidos</span>
+                <h1 class="main-title">Combos Clássicos</h1>
+                <p class="subtitle">Sabor incrível com economia garantida</p>
+            </div>
 
-        <!-- SEÇÃO 1 -->
-        <h2 class="section-title">☀️ Práticos & Lanches Rápidos</h2>
-        <div class="combos-grid">
+            <div class="combos-grid">
+                
+                <!-- Combo 1 -->
+                <div class="combo-card">
+                    <div>
+                        <h3 class="combo-name">Combo Clássico Carioca</h3>
+                        <p class="combo-items">Pão de Queijo Coquetel (10 unid.) + Guaravita</p>
+                    </div>
+                    <div class="combo-icon">
+                        <svg width="80" height="80" viewBox="0 0 100 100" fill="none" stroke="var(--preco-novo-laranja)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="20" y="25" width="25" height="40" rx="3" />
+                            <path d="M25 25 L 30 10 L 35 10 L 32 25" />
+                            <path d="M20 40 L 45 40" stroke-dasharray="3 3"/>
+                            <path d="M20 50 L 45 50" stroke-dasharray="3 3"/>
+                            <circle cx="70" cy="50" r="15" />
+                            <path d="M65 45 Q 70 55 75 45" />
+                            <circle cx="68" cy="68" r="8" />
+                            <path d="M65 65 Q 68 72 71 65" />
+                        </svg>
+                    </div>
+                    <div class="price-section">
+                        <span class="old-price">De: R$ 13,00</span>
+                        <div class="new-price-tag">
+                            <span class="new-price-label">Preço do Combo</span>
+                            <span class="new-price-value">R$ 10,90</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combo 2 -->
+                <div class="combo-card">
+                    <div>
+                        <h3 class="combo-name">Combo Café da Manhã Tradicional</h3>
+                        <p class="combo-items">Cappuccino + 2 Pães de Queijo Lanche</p>
+                    </div>
+                    <div class="combo-icon">
+                        <svg width="80" height="80" viewBox="0 0 100 100" fill="none" stroke="var(--preco-novo-laranja)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 40 L 15 60 Q 15 75 30 75 L 40 75 Q 55 75 55 60 L 55 40 Z" />
+                            <path d="M55 45 L 65 45 Q 70 45 70 55 Q 70 65 60 65 L 55 65" />
+                            <path d="M25 30 Q 30 20 25 10" />
+                            <path d="M35 30 Q 40 20 35 10" />
+                            <path d="M45 30 Q 50 20 45 10" />
+                            <circle cx="75" cy="40" r="12" />
+                            <path d="M70 35 Q 75 45 80 35" />
+                            <circle cx="85" cy="65" r="12" />
+                            <path d="M80 60 Q 85 70 90 60" />
+                        </svg>
+                    </div>
+                    <div class="price-section">
+                        <span class="old-price">De: R$ 21,00</span>
+                        <div class="new-price-tag">
+                            <span class="new-price-label">Preço do Combo</span>
+                            <span class="new-price-value">R$ 17,90</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combo 3 -->
+                <div class="combo-card">
+                    <div>
+                        <h3 class="combo-name">Combo Shake & Pão de Queijo</h3>
+                        <p class="combo-items">Pão de Queijo Coquetel (10 unid.) + Milkshake 300ml (Ovomaltine, Nutella ou Morango)</p>
+                    </div>
+                    <div class="combo-icon">
+                        <svg width="80" height="80" viewBox="0 0 100 100" fill="none" stroke="var(--preco-novo-laranja)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 40 L 30 75 L 50 75 L 60 40 Z" />
+                            <path d="M15 40 Q 40 30 65 40" />
+                            <path d="M40 35 L 45 10" />
+                            <path d="M25 25 Q 40 15 55 25" />
+                            <circle cx="75" cy="50" r="10" />
+                            <path d="M70 45 Q 75 55 80 45" />
+                            <circle cx="85" cy="70" r="10" />
+                            <path d="M80 65 Q 85 75 90 65" />
+                            <circle cx="60" cy="70" r="8" />
+                            <path d="M55 65 Q 60 75 65 65" />
+                        </svg>
+                    </div>
+                    <div class="price-section">
+                        <span class="old-price">De: R$ 25,00</span>
+                        <div class="new-price-tag">
+                            <span class="new-price-label">Preço do Combo</span>
+                            <span class="new-price-value">R$ 19,90</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combo 4 -->
+                <div class="combo-card">
+                    <div>
+                        <h3 class="combo-name">Combo Super Fome</h3>
+                        <p class="combo-items">Coxinha (ou Kibe) + Açaí + Pão de Queijo Coquetel (5 unid.)</p>
+                    </div>
+                    <div class="combo-icon">
+                        <svg width="80" height="80" viewBox="0 0 100 100" fill="none" stroke="var(--preco-novo-laranja)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M25 20 Q 45 40 45 60 Q 45 80 25 80 Q 5 80 5 60 Q 5 40 25 20 Z" />
+                            <path d="M15 60 Q 25 70 35 60" stroke-dasharray="2 4"/>
+                            <path d="M55 50 Q 75 35 95 50 Q 95 70 75 80 Q 55 70 55 50 Z" />
+                            <path d="M60 45 Q 75 25 90 45" fill="var(--preco-novo-laranja)" fill-opacity="0.1"/>
+                            <path d="M65 42 Q 75 30 85 42" />
+                            <circle cx="75" cy="20" r="8" />
+                            <path d="M70 15 Q 75 25 80 15" />
+                        </svg>
+                    </div>
+                    <div class="price-section">
+                        <span class="old-price">De: R$ 28,00</span>
+                        <div class="new-price-tag">
+                            <span class="new-price-label">Preço do Combo</span>
+                            <span class="new-price-value">R$ 22,90</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combo 5 -->
+                <div class="combo-card" style="grid-column: 1 / -1; max-width: 500px; margin: 0 auto;">
+                    <div>
+                        <h3 class="combo-name">Combo Silhouette Francês</h3>
+                        <p class="combo-items">Croissant de Chocolate + Cappuccino + Água com Gás</p>
+                    </div>
+                    <div class="combo-icon">
+                        <svg width="100" height="60" viewBox="0 0 120 60" fill="none" stroke="var(--preco-novo-laranja)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 40 Q 30 10 50 40 Q 30 50 10 40 Z" />
+                            <path d="M20 30 Q 30 15 40 30" />
+                            <path d="M25 35 Q 30 25 35 35" />
+                            <path d="M60 30 L 60 50 Q 60 60 70 60 L 80 60 Q 90 60 90 50 L 90 30 Z" />
+                            <path d="M90 35 L 100 35 Q 105 35 105 40 Q 105 50 95 50 L 90 50" />
+                            <path d="M70 20 Q 75 10 70 5" />
+                            <path d="M80 20 Q 85 10 80 5" />
+                        </svg>
+                    </div>
+                    <div class="price-section">
+                        <span class="old-price">De: R$ 27,00</span>
+                        <div class="new-price-tag">
+                            <span class="new-price-label">Preço do Combo</span>
+                            <span class="new-price-value">R$ 24,90</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
             
-            <div class="combo-card">
-                <div>
-                    <h3 class="combo-name">Combo Clássico Carioca</h3>
-                    <div class="combo-desc-wrapper">
-                        <!-- Ícone: Copo de Guaravita e um belo Pão de Queijo -->
-                        <svg class="combo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M14 16 L16 40 C16 42 18 44 20 44 L28 44 C30 44 32 42 32 40 L34 16"></path>
-                            <path d="M12 16 H36"></path>
-                            <path d="M16 16 V12 C16 10 32 10 32 12 V16"></path>
-                            <path d="M24 10 L28 4"></path>
-                            <circle cx="38" cy="34" r="8"></circle>
-                            <path d="M35 32 C36 34 39 34 40 32"></path>
-                            <circle cx="39" cy="37" r="1" fill="currentColor"></circle>
-                            <circle cx="35" cy="36" r="1" fill="currentColor"></circle>
-                        </svg>
-                        <p class="combo-desc">Pão de Queijo Coquetel (10 unid.) + Guaravita</p>
-                    </div>
-                </div>
-                <div class="price-section">
-                    <span class="old-price">De: R$ 13,00</span>
-                    <div class="new-price-tag">
-                        <span class="new-price-label">Preço do Combo</span>
-                        <span class="new-price-value">R$ 10,90</span>
-                    </div>
-                </div>
+            <!-- Botão para a Página 2 -->
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="btn btn-confirm" style="font-size: 1.1rem; padding: 16px 24px; display: inline-flex; width: auto; margin: 0 auto;" onclick="switchPage('page-2')">
+                    🥪 Ver Combos de Sanduíche Montável ➔
+                </button>
             </div>
-
-            <div class="combo-card">
-                <div>
-                    <h3 class="combo-name">Combo Café da Manhã Tradicional</h3>
-                    <div class="combo-desc-wrapper">
-                        <!-- Ícone: Caneca de Capuccino fumegante e 2 Pães de Queijo -->
-                        <svg class="combo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M8 20 H26 V34 C26 38 22 42 17 42 C12 42 8 38 8 34 V20 Z"></path>
-                            <path d="M26 24 H30 C32 24 34 26 34 30 C34 34 32 36 30 36 H24"></path>
-                            <path d="M12 14 C12 10 16 12 16 8"></path>
-                            <path d="M20 14 C20 10 24 12 24 8"></path>
-                            <circle cx="38" cy="22" r="6"></circle>
-                            <path d="M36 20 C37 22 39 22 40 20"></path>
-                            <circle cx="39" cy="24" r="1" fill="currentColor"></circle>
-                            <circle cx="40" cy="36" r="7"></circle>
-                            <path d="M37 34 C39 36 41 36 42 34"></path>
-                            <circle cx="41" cy="39" r="1" fill="currentColor"></circle>
-                            <circle cx="38" cy="38" r="1" fill="currentColor"></circle>
-                        </svg>
-                        <p class="combo-desc">Cappuccino + 2 Pães de Queijo Lanche</p>
-                    </div>
-                </div>
-                <div class="price-section">
-                    <span class="old-price">De: R$ 21,00</span>
-                    <div class="new-price-tag">
-                        <span class="new-price-label">Preço do Combo</span>
-                        <span class="new-price-value">R$ 17,90</span>
-                    </div>
-                </div>
-            </div>
-
+            
         </div>
+    </div> <!-- Fim Page 1 -->
 
-        <!-- SEÇÃO 2 -->
-        <h2 class="section-title">🥤 Especiais & Sobremesas</h2>
-        <div class="combos-grid">
-
-            <div class="combo-card">
-                <div>
-                    <h3 class="combo-name">Combo Shake & Pão de Queijo</h3>
-                    <div class="combo-desc-wrapper">
-                        <!-- Ícone: Copo de Milkshake com Chantilly e Pão de Queijo -->
-                        <svg class="combo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 22 L16 42 C16 44 18 44 20 44 L28 44 C30 44 32 44 32 42 L36 22"></path>
-                            <path d="M10 22 H38"></path>
-                            <path d="M14 22 C12 16 18 16 20 12 C20 6 28 6 28 12 C30 16 36 16 34 22"></path>
-                            <path d="M24 8 L28 2"></path>
-                            <circle cx="40" cy="34" r="7"></circle>
-                            <path d="M38 32 C39 34 41 34 42 32"></path>
-                            <circle cx="42" cy="36" r="1" fill="currentColor"></circle>
-                            <circle cx="39" cy="37" r="1" fill="currentColor"></circle>
-                        </svg>
-                        <p class="combo-desc">Pão de Queijo Coquetel (10 unidades) + Milkshake 300ml (Ovomaltine, Nutella ou Morango)</p>
-                    </div>
-                </div>
-                <div class="price-section">
-                    <span class="old-price">De: R$ 25,00</span>
-                    <div class="new-price-tag">
-                        <span class="new-price-label">Preço do Combo</span>
-                        <span class="new-price-value">R$ 19,90</span>
-                    </div>
-                </div>
+    <!-- PAGE 2: COMBOS DE SANDUÍCHE -->
+    <div id="page-2" class="page">
+        <div class="menu-container">
+            
+            <button class="btn btn-cancel" style="margin-bottom: 30px; display: inline-block; width: auto; padding: 10px 20px;" onclick="switchPage('page-1')">
+                ⬅ Voltar aos Combos Clássicos
+            </button>
+            
+            <div class="menu-header">
+                <span class="category-badge" style="background: var(--preco-antigo-turquesa); color: white;">Especial Mão na Massa</span>
+                <h1 class="main-title">Combos de Sanduíche</h1>
+                <p class="subtitle">Monte do seu jeito e aproveite os melhores acompanhamentos!</p>
             </div>
 
-            <div class="combo-card">
-                <div>
-                    <h3 class="combo-name">Combo Super Fome</h3>
-                    <div class="combo-desc-wrapper">
-                        <!-- Ícone: Tigela de Açaí, Coxinha e Pão de Queijo menorzinho -->
-                        <svg class="combo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 26 C4 34 10 42 20 42 C30 42 36 34 36 26 Z"></path>
-                            <path d="M2 26 H38"></path>
-                            <path d="M8 26 C8 20 16 16 20 16 C24 16 32 20 32 26"></path>
-                            <path d="M38 38 C32 38 32 28 38 24 C44 28 44 38 38 38 Z"></path>
-                            <circle cx="40" cy="14" r="5"></circle>
-                            <path d="M38 13 C39 15 41 15 42 13"></path>
-                        </svg>
-                        <p class="combo-desc">Coxinha (ou Kibe) + Açaí + Pão de Queijo Coquetel (5 unid.)</p>
-                    </div>
-                </div>
-                <div class="price-section">
-                    <span class="old-price">De: R$ 28,00</span>
-                    <div class="new-price-tag">
-                        <span class="new-price-label">Preço do Combo</span>
-                        <span class="new-price-value">R$ 22,90</span>
-                    </div>
-                </div>
+            <!-- Caixa de Instruções -->
+            <div style="background: var(--fundo-creme); border: 2px dashed var(--preco-antigo-turquesa); padding: 20px; border-radius: 12px; margin-bottom: 30px; text-align: left;">
+                <h4 style="color: var(--texto-marrom); margin-top: 0; font-size: 1.2rem; display: flex; align-items: center; gap: 8px;">
+                    💡 Como montar o seu Sanduíche:
+                </h4>
+                <p style="color: var(--texto-marrom); font-size: 0.95rem; margin-bottom: 0; line-height: 1.5;">
+                    Ao clicar no combo escolhido, você poderá selecionar: <br>
+                    <strong>1 Pão + 1 Proteína + 1 Queijo + 1 Molho</strong> e informar se deseja salada!
+                </p>
             </div>
 
-            <div class="combo-card">
-                <div>
-                    <h3 class="combo-name">Combo Silhouette Francês</h3>
-                    <div class="combo-desc-wrapper">
-                        <!-- Ícone: Croissant detalhado, Xícara e bolhinhas de Água com gás -->
-                        <svg class="combo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M6 30 H22 V38 C22 42 18 44 14 44 C10 44 6 42 6 38 V30 Z"></path>
-                            <path d="M22 34 H26 C28 34 28 38 26 38 H22"></path>
-                            <path d="M18 16 C22 8 40 8 46 16 C48 20 42 24 38 22 C32 20 26 20 22 22 C18 24 16 20 18 16 Z"></path>
-                            <path d="M26 12 C28 14 28 18 26 20"></path>
-                            <path d="M34 12 C36 14 36 18 34 20"></path>
-                            <circle cx="40" cy="34" r="2.5"></circle>
-                            <circle cx="46" cy="28" r="1.5"></circle>
-                            <circle cx="34" cy="42" r="1.5"></circle>
-                            <circle cx="44" cy="38" r="1"></circle>
+            <div class="combos-grid">
+                
+                <!-- Combo 1 -->
+                <div class="combo-card combo-sandwich-card">
+                    <div>
+                        <h3 class="combo-name">Combo 1: Pega Leve!</h3>
+                        <p class="combo-items">1 Sanduíche Montável à sua escolha + 1 Icetea</p>
+                    </div>
+                    <div class="combo-icon">
+                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" stroke="var(--preco-novo-laranja)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 30 Q 25 20, 40 30 Q 25 40, 10 30 Z" />
+                            <path d="M15 28 L 35 28" stroke-dasharray="2 2"/>
+                            <rect x="42" y="15" width="12" height="25" rx="2" />
+                            <path d="M48 5 L 45 15" />
                         </svg>
-                        <p class="combo-desc">Croissant de Chocolate + Cappuccino + Água com Gás</p>
+                    </div>
+                    <div class="price-section">
+                        <span class="old-price">De: R$ 25,50</span>
+                        <div class="new-price-tag">
+                            <span class="new-price-label">Preço do Combo</span>
+                            <span class="new-price-value">R$ 22,00</span>
+                        </div>
                     </div>
                 </div>
-                <div class="price-section">
-                    <span class="old-price">De: R$ 27,00</span>
-                    <div class="new-price-tag">
-                        <span class="new-price-label">Preço do Combo</span>
-                        <span class="new-price-value">R$ 24,90</span>
-                    </div>
-                </div>
-            </div>
 
+                <!-- Combo 2 -->
+                <div class="combo-card combo-sandwich-card">
+                    <div>
+                        <h3 class="combo-name">Combo 2: Fome de Leão</h3>
+                        <p class="combo-items">1 Sanduíche Montável + 1 Guaravita + 1 Sorvete Casquinha</p>
+                    </div>
+                    <div class="combo-icon">
+                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" stroke="var(--preco-novo-laranja)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 25 Q 15 18, 25 25 Q 15 32, 5 25 Z" />
+                            <rect x="30" y="15" width="10" height="20" rx="2" />
+                            <path d="M45 25 L 55 25 L 50 40 Z" />
+                            <circle cx="50" cy="20" r="5" />
+                        </svg>
+                    </div>
+                    <div class="price-section">
+                        <span class="old-price">De: R$ 25,00</span>
+                        <div class="new-price-tag">
+                            <span class="new-price-label">Preço do Combo</span>
+                            <span class="new-price-value">R$ 22,90</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combo 3 -->
+                <div class="combo-card combo-sandwich-card">
+                    <div>
+                        <h3 class="combo-name">Combo 3: Dupla Dinâmica</h3>
+                        <p class="combo-items">1 Sanduíche Montável + 1 Açaí</p>
+                    </div>
+                    <div class="combo-icon">
+                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" stroke="var(--preco-novo-laranja)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10 30 Q 20 22, 30 30 Q 20 38, 10 30 Z" />
+                            <path d="M35 30 Q 45 40 55 30 Z" />
+                            <path d="M38 28 Q 45 20 52 28 Z" fill="var(--preco-novo-laranja)" fill-opacity="0.2"/>
+                        </svg>
+                    </div>
+                    <div class="price-section">
+                        <span class="old-price">De: R$ 31,00</span>
+                        <div class="new-price-tag">
+                            <span class="new-price-label">Preço do Combo</span>
+                            <span class="new-price-value">R$ 24,90</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combo 4 -->
+                <div class="combo-card combo-sandwich-card">
+                    <div>
+                        <h3 class="combo-name">Combo 4: Artesanal Premium</h3>
+                        <p class="combo-items">1 Sanduíche Montável + 1 Milkshake 300ml</p>
+                    </div>
+                    <div class="combo-icon">
+                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" stroke="var(--preco-novo-laranja)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 30 Q 15 22, 25 30 Q 15 38, 5 30 Z" />
+                            <path d="M35 15 L 50 15 L 45 40 L 40 40 Z" />
+                            <path d="M42 5 L 42 15" />
+                        </svg>
+                    </div>
+                    <div class="price-section">
+                        <span class="old-price">De: R$ 33,00</span>
+                        <div class="new-price-tag">
+                            <span class="new-price-label">Preço do Combo</span>
+                            <span class="new-price-value">R$ 26,90</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combo 5 -->
+                <div class="combo-card combo-sandwich-card" style="grid-column: 1 / -1; max-width: 500px; margin: 0 auto;">
+                    <div>
+                        <h3 class="combo-name">Combo 5: Supremo</h3>
+                        <p class="combo-items">1 Sanduíche Montável + 1 Sundae + 1 Água com Gás</p>
+                    </div>
+                    <div class="combo-icon">
+                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" stroke="var(--preco-novo-laranja)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 25 Q 12 18, 22 25 Q 12 32, 2 25 Z" />
+                            <path d="M28 20 L 40 20 L 36 35 L 32 35 Z" />
+                            <circle cx="34" cy="15" r="5" />
+                            <rect x="45" y="15" width="10" height="20" rx="2" />
+                        </svg>
+                    </div>
+                    <div class="price-section">
+                        <span class="old-price">De: R$ 36,00</span>
+                        <div class="new-price-tag">
+                            <span class="new-price-label">Preço do Combo</span>
+                            <span class="new-price-value">R$ 29,90</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div> <!-- Fim Page 2 -->
+
+    <!-- MODAL DO CONSTRUTOR DE SANDUÍCHE -->
+    <div class="modal-overlay" id="sandwichBuilderModal">
+        <div class="modal-box" style="max-width: 450px; text-align: left;">
+            <h3 class="modal-title" style="text-align: center;">Monte seu Sanduíche 🥪</h3>
+            <p class="modal-subtitle" style="text-align: center; margin-bottom: 15px;">Escolha com carinho os ingredientes:</p>
+            
+            <label style="display: block; color: var(--texto-marrom); font-weight: 700; margin-bottom: 5px;">🥖 Pão:</label>
+            <select id="selPao" class="modal-input" style="margin: 0 0 12px 0; padding: 10px;">
+                <option value="">Selecione o Pão...</option>
+                <option value="Pão Sovado">Pão Sovado</option>
+                <option value="Pão Pita">Pão Pita</option>
+                <option value="Pão de Queijo">Pão de Queijo</option>
+            </select>
+
+            <label style="display: block; color: var(--texto-marrom); font-weight: 700; margin-bottom: 5px;">🥩 Proteína:</label>
+            <select id="selProteina" class="modal-input" style="margin: 0 0 12px 0; padding: 10px;">
+                <option value="">Selecione a Carne...</option>
+                <option value="Contrafilé Suíno Assado">Contrafilé Suíno Assado</option>
+                <option value="Lagarto Bovino de Panela">Lagarto Bovino de Panela</option>
+                <option value="Filé de Frango Desfiado">Filé de Frango Desfiado</option>
+            </select>
+
+            <label style="display: block; color: var(--texto-marrom); font-weight: 700; margin-bottom: 5px;">🧀 Queijo:</label>
+            <select id="selQueijo" class="modal-input" style="margin: 0 0 12px 0; padding: 10px;">
+                <option value="">Selecione o Queijo...</option>
+                <option value="Catupiry">Catupiry</option>
+                <option value="Mussarela">Mussarela</option>
+                <option value="Prato">Prato</option>
+            </select>
+
+            <label style="display: block; color: var(--texto-marrom); font-weight: 700; margin-bottom: 5px;">🥣 Molho:</label>
+            <select id="selMolho" class="modal-input" style="margin: 0 0 15px 0; padding: 10px;">
+                <option value="">Selecione o Molho...</option>
+                <option value="Mostarda e Mel">Mostarda e Mel</option>
+                <option value="Molho da Carne Assada Reduzido">Molho da Carne Assada Reduzido</option>
+                <option value="Barbecue">Barbecue</option>
+            </select>
+
+            <label style="display: flex; align-items: center; gap: 10px; color: var(--texto-marrom); font-weight: 700; cursor: pointer; margin-bottom: 10px; background: white; padding: 10px; border-radius: 8px; border: 2px solid var(--preco-antigo-turquesa);">
+                <input type="checkbox" id="chkSalada" style="width: 20px; height: 20px; accent-color: var(--preco-novo-laranja);">
+                Deseja adicionar Salada? 🥬
+            </label>
+            
+            <p id="sandwichError" style="color: red; font-size: 0.9rem; display: none; text-align: center; margin-bottom: 10px; font-weight: bold;">Por favor, selecione pão, proteína, queijo e molho.</p>
+
+            <div class="modal-buttons" style="margin-top: 20px;">
+                <button class="btn btn-cancel" onclick="closeSandwichBuilder()">Cancelar</button>
+                <button class="btn btn-confirm" onclick="confirmSandwich()">Próximo Passo ➔</button>
+            </div>
         </div>
     </div>
 
@@ -496,65 +690,139 @@
 
     <!-- SCRIPT DE INTERATIVIDADE -->
     <script>
+        // Elementos Modais
         const modal = document.getElementById('orderModal');
+        const sandwichModal = document.getElementById('sandwichBuilderModal');
         const nameInput = document.getElementById('customerName');
         const confirmBtn = document.getElementById('confirmOrderBtn');
+        const sandwichError = document.getElementById('sandwichError');
+        
+        // Estado do Pedido
         let selectedCombo = '';
+        let isSandwichCombo = false;
+        let sandwichDetails = {};
 
-        // 1. Torna os cards clicáveis e guarda qual combo foi escolhido
-        document.querySelectorAll('.combo-card').forEach(card => {
+        // --- SISTEMA DE PÁGINAS ---
+        function switchPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0); // Volta pro topo ao trocar de página
+        }
+
+        // --- FLUXO DA PÁGINA 1 (COMBOS CLÁSSICOS) ---
+        // Pega todos os cards da página 1 (que não são da classe combo-sandwich-card)
+        document.querySelectorAll('#page-1 .combo-card').forEach(card => {
             card.addEventListener('click', () => {
                 selectedCombo = card.querySelector('.combo-name').innerText;
-                modal.classList.add('active'); // Abre o modal
-                
-                // Reseta e foca no input de nome
-                nameInput.value = '';
-                nameInput.style.borderColor = 'var(--preco-antigo-turquesa)';
-                nameInput.placeholder = 'Digite seu nome...';
-                nameInput.focus();
+                isSandwichCombo = false; // Fluxo normal
+                openNameModal();
             });
         });
 
-        // 2. Função para fechar o modal
+        // --- FLUXO DA PÁGINA 2 (COMBOS DE SANDUÍCHE) ---
+        document.querySelectorAll('.combo-sandwich-card').forEach(card => {
+            card.addEventListener('click', () => {
+                selectedCombo = card.querySelector('.combo-name').innerText;
+                isSandwichCombo = true; // Fluxo de sanduíche
+                openSandwichBuilder();
+            });
+        });
+
+        // Abre o Construtor de Sanduíche
+        function openSandwichBuilder() {
+            sandwichModal.classList.add('active');
+            // Reseta os selects e avisos
+            document.getElementById('selPao').value = '';
+            document.getElementById('selProteina').value = '';
+            document.getElementById('selQueijo').value = '';
+            document.getElementById('selMolho').value = '';
+            document.getElementById('chkSalada').checked = false;
+            sandwichError.style.display = 'none';
+        }
+
+        // Fecha o Construtor de Sanduíche
+        function closeSandwichBuilder() {
+            sandwichModal.classList.remove('active');
+        }
+
+        // Valida as escolhas do sanduíche e avança pro Nome
+        function confirmSandwich() {
+            const pao = document.getElementById('selPao').value;
+            const proteina = document.getElementById('selProteina').value;
+            const queijo = document.getElementById('selQueijo').value;
+            const molho = document.getElementById('selMolho').value;
+            const salada = document.getElementById('chkSalada').checked ? 'Com salada 🥬' : 'Sem salada';
+
+            // Verifica se escolheu tudo
+            if(!pao || !proteina || !queijo || !molho) {
+                sandwichError.style.display = 'block';
+                return;
+            }
+
+            sandwichError.style.display = 'none';
+            // Salva as escolhas
+            sandwichDetails = { pao, proteina, queijo, molho, salada };
+            
+            // Fecha este modal e abre o próximo (nome)
+            closeSandwichBuilder();
+            openNameModal();
+        }
+
+        // --- FLUXO DO NOME E WHATSAPP ---
+        function openNameModal() {
+            modal.classList.add('active');
+            nameInput.value = '';
+            nameInput.style.borderColor = 'var(--preco-antigo-turquesa)';
+            nameInput.placeholder = 'Digite seu nome...';
+            nameInput.focus();
+        }
+
         function closeModal() {
             modal.classList.remove('active');
         }
 
-        // Fecha se clicar fora da caixinha do modal
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeModal();
-            }
+        // Fecha se clicar fora de qualquer modal
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+            if (e.target === sandwichModal) closeSandwichBuilder();
         });
 
-        // 3. Processar o pedido e direcionar pro zap
+        // Envia para o WhatsApp
         confirmBtn.addEventListener('click', () => {
             const customerName = nameInput.value.trim();
             
-            // Validação simples se esqueceu o nome
             if (!customerName) {
                 nameInput.style.borderColor = 'red';
                 nameInput.placeholder = 'Por favor, me diga seu nome! 😊';
                 return;
             }
             
-            // Variáveis do Zap
             const phoneNumber = '5522988196364';
-            // Os asteriscos deixam o nome do combo em negrito no WhatsApp
-            const message = `Olá! Meu nome é ${customerName} e eu gostaria de pedir o *${selectedCombo}*.`;
+            let message = '';
+
+            if (isSandwichCombo) {
+                // Mensagem formatada com os detalhes do sanduíche
+                message = `Olá! Meu nome é ${customerName} e eu gostaria de pedir o *${selectedCombo}*.\n\n` +
+                          `*Meu Sanduíche:*\n` +
+                          `🥖 Pão: ${sandwichDetails.pao}\n` +
+                          `🥩 Proteína: ${sandwichDetails.proteina}\n` +
+                          `🧀 Queijo: ${sandwichDetails.queijo}\n` +
+                          `🥣 Molho: ${sandwichDetails.molho}\n` +
+                          `🥗 Extras: ${sandwichDetails.salada}`;
+            } else {
+                // Mensagem formatada simples
+                message = `Olá! Meu nome é ${customerName} e eu gostaria de pedir o *${selectedCombo}*.`;
+            }
             
-            // Codifica a URL e abre a nova aba
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(whatsappUrl, '_blank');
-            
-            closeModal(); // fecha a telinha depois de enviar
+            closeModal(); 
         });
 
-        // 4. Facilidade: Permitir apertar "Enter" no teclado para confirmar
         nameInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                confirmBtn.click();
-            }
+            if (e.key === 'Enter') confirmBtn.click();
         });
     </script>
 </body>
