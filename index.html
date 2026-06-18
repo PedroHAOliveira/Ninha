@@ -177,6 +177,34 @@
             font-weight: 800;
         }
 
+        /* --- ESTILOS DA BOX DE ITENS AVULSOS --- */
+        .custom-order-box {
+            background-color: var(--fundo-creme);
+            border: 2px dashed var(--preco-novo-laranja);
+            border-radius: 15px;
+            padding: 20px 25px;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .custom-order-text h4 {
+            margin: 0 0 5px 0;
+            color: var(--texto-marrom);
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+
+        .custom-order-text p {
+            margin: 0;
+            color: var(--texto-marrom);
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
         /* Responsividade */
         @media (max-width: 600px) {
             .menu-container {
@@ -185,6 +213,13 @@
             }
             .combos-grid {
                 grid-template-columns: 1fr;
+            }
+            .custom-order-box {
+                flex-direction: column;
+                text-align: center;
+            }
+            .custom-order-box .btn {
+                width: 100%;
             }
         }
 
@@ -469,6 +504,17 @@
                     🥪 Ver Combos de Sanduíche Montável ➔
                 </button>
             </div>
+
+            <!-- Box de Itens Avulsos -->
+            <div class="custom-order-box">
+                <div class="custom-order-text">
+                    <h4>Apenas um lanchinho? 🍟</h4>
+                    <p>Não quer um combo hoje? Peça itens avulsos ou tire dúvidas diretamente com nossa equipe!</p>
+                </div>
+                <button class="btn btn-confirm btn-custom-order" style="flex: none; padding: 12px 20px;">
+                    Falar no WhatsApp
+                </button>
+            </div>
             
         </div>
     </div> <!-- Fim Page 1 -->
@@ -614,6 +660,18 @@
                 </div>
 
             </div>
+            
+            <!-- Box de Itens Avulsos (Repetida na página 2) -->
+            <div class="custom-order-box">
+                <div class="custom-order-text">
+                    <h4>Apenas um lanchinho? 🍟</h4>
+                    <p>Não quer um combo hoje? Peça itens avulsos ou tire dúvidas diretamente com nossa equipe!</p>
+                </div>
+                <button class="btn btn-confirm btn-custom-order" style="flex: none; padding: 12px 20px;">
+                    Falar no WhatsApp
+                </button>
+            </div>
+            
         </div>
     </div> <!-- Fim Page 2 -->
 
@@ -730,6 +788,15 @@
             });
         });
 
+        // --- FLUXO DE ITENS AVULSOS (NOVO BOTÃO) ---
+        document.querySelectorAll('.btn-custom-order').forEach(btn => {
+            btn.addEventListener('click', () => {
+                selectedCombo = 'Itens Avulsos';
+                isSandwichCombo = false;
+                openNameModal();
+            });
+        });
+
         // Abre o Construtor de Sanduíche
         function openSandwichBuilder() {
             sandwichModal.classList.add('active');
@@ -811,8 +878,11 @@
                           `🧀 Queijo: ${sandwichDetails.queijo}\n` +
                           `🥣 Molho: ${sandwichDetails.molho}\n` +
                           `🥗 Extras: ${sandwichDetails.salada}`;
+            } else if (selectedCombo === 'Itens Avulsos') {
+                // Mensagem específica caso a pessoa clique na box de itens avulsos
+                message = `Olá! Meu nome é ${customerName} e eu gostaria de fazer um pedido de *itens avulsos*. Podem me ajudar?`;
             } else {
-                // Mensagem formatada simples
+                // Mensagem formatada simples para combos
                 message = `Olá! Meu nome é ${customerName} e eu gostaria de pedir o *${selectedCombo}*.`;
             }
             
